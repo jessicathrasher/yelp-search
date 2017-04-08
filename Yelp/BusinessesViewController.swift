@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersViewControllerDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersViewControllerDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var businessesTableView: UITableView!
     
@@ -17,23 +17,19 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let searchBar = UISearchBar()
+        searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
+        searchBar.delegate = self
+        
         businessesTableView.dataSource = self
         businessesTableView.delegate = self
         businessesTableView.rowHeight = UITableViewAutomaticDimension
         businessesTableView.estimatedRowHeight = 120
         
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
-            
-            self.businesses = businesses
-            self.businessesTableView.reloadData()
-            
-//            if let businesses = businesses {
-//                for business in businesses {
-//                    print(business.name!)
-//                    print(business.address!)
-//                }
-//            }
-            
+        Business.searchWithTerm(term: "", completion: { (businesses: [Business]?, error: Error?) -> Void in
+                self.businesses = businesses
+                self.businessesTableView.reloadData()
             }
         )
         
@@ -65,6 +61,31 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.business = businesses[indexPath.row]
         
         return cell
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        Business.searchWithTerm(term: searchText, completion: { (businesses: [Business]?, error: Error?) -> Void in
+            self.businesses = businesses
+            self.businessesTableView.reloadData()
+            }
+        )
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        
+        Business.searchWithTerm(term: "", completion: { (businesses: [Business]?, error: Error?) -> Void in
+            self.businesses = businesses
+            self.businessesTableView.reloadData()
+            }
+        )
     }
     
     override func didReceiveMemoryWarning() {

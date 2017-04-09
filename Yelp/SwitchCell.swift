@@ -24,6 +24,8 @@ class SwitchCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
+        self.selectionStyle = UITableViewCellSelectionStyle.none
+        
         onSwitch.addTarget(self, action: #selector(SwitchCell.switchValueChanged), for: UIControlEvents.valueChanged)
     }
 

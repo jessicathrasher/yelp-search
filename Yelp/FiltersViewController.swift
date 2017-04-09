@@ -39,6 +39,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 
         filtersTableView.delegate = self
         filtersTableView.dataSource = self
+        filtersTableView.rowHeight = UITableViewAutomaticDimension
+        filtersTableView.estimatedRowHeight = 80
         
         // Initialize to set the visible and currently selected to the first option
         allSortOptions = yelpSortOptions()
@@ -50,7 +52,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         selectedDistanceOption = [allDistanceOptions[0]]
 
         categories = shortYelpCategories()
-        
+     
     }
 
     override func didReceiveMemoryWarning() {
@@ -165,14 +167,16 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             
             let indexSet = NSIndexSet(index: indexPath.section)
-            tableView.reloadSections(indexSet as IndexSet, with: UITableViewRowAnimation.automatic)        }
+            tableView.reloadSections(indexSet as IndexSet, with: UITableViewRowAnimation.automatic)
+        }
         
-        if indexPath.section == 3 {
+        if indexPath.section == 3 && indexPath.row == 3 {
             // Expand if showing short list
             if (categories.count == 4) {
                 categories = allYelpCategories()
                 let indexSet = NSIndexSet(index: indexPath.section)
-                tableView.reloadSections(indexSet as IndexSet, with: UITableViewRowAnimation.automatic)            }
+                tableView.reloadSections(indexSet as IndexSet, with: UITableViewRowAnimation.automatic)
+            }
         }
     }
 
@@ -235,7 +239,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             return UITableViewCell()
         }
     }
-    
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         

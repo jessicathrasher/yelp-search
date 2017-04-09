@@ -223,26 +223,25 @@
                                             <outlet property="optionLabel" destination="mRB-Rb-QAB" id="hBH-vt-YVT"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShowMoreCell" rowHeight="62" id="VZA-X6-UwZ">
-                                        <rect key="frame" x="0.0" y="179.5" width="375" height="62"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShowMoreCell" id="lk1-lo-iz1" customClass="ShowMoreCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="180" width="375" height="86"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VZA-X6-UwZ" id="znd-36-860" customClass="ShowMoreCell" customModule="Yelp" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="61.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lk1-lo-iz1" id="3s3-fg-7YK">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show More 🎉" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8KZ-15-FOh">
-                                                    <rect key="frame" x="131" y="12" width="113.5" height="36"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show More 🎉" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQL-2s-iYO">
+                                                    <rect key="frame" x="131" y="33" width="113.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="8KZ-15-FOh" firstAttribute="centerX" secondItem="znd-36-860" secondAttribute="centerX" id="HHj-ex-Kyj"/>
-                                                <constraint firstItem="8KZ-15-FOh" firstAttribute="centerY" secondItem="znd-36-860" secondAttribute="centerY" id="MCv-J2-V6F"/>
-                                                <constraint firstItem="8KZ-15-FOh" firstAttribute="top" secondItem="znd-36-860" secondAttribute="topMargin" constant="4" id="pGy-pS-dGY"/>
-                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="showMoreLabel" destination="GQL-2s-iYO" id="mPv-Df-NYD"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

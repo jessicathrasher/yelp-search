@@ -10,6 +10,8 @@ import UIKit
 
 class ShowMoreCell: UITableViewCell {
 
+    @IBOutlet weak var showMoreLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

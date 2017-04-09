@@ -17,6 +17,18 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var categories: [[String:String]]!
     var switchStates = [Int:Bool]()
+    var offeringDeal = Bool()
+    var numberOfSections = 4
+    
+    // Sort
+    var allSortOptions: [String]!
+    var selectedSortOption: [String]!
+    var visibleSortOptions: [String]!
+    
+    // Distance
+    var allDistanceOptions: [String]!
+    var selectedDistanceOption: [String]!
+    var visibleDistanceOptions: [String]!
     
     @IBOutlet weak var filtersTableView: UITableView!
     
@@ -28,7 +40,16 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         filtersTableView.delegate = self
         filtersTableView.dataSource = self
         
-        categories = yelpCategories()
+        // Initialize to set the visible and currently selected to the first option
+        allSortOptions = yelpSortOptions()
+        visibleSortOptions = [allSortOptions[0]]
+        selectedSortOption = [allSortOptions[0]]
+        
+        allDistanceOptions = yelpDistanceOptions()
+        visibleDistanceOptions = [allDistanceOptions[0]]
+        selectedDistanceOption = [allDistanceOptions[0]]
+
+        categories = shortYelpCategories()
         
     }
 
@@ -38,7 +59,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBAction func onCancelButton(_ sender: Any) {
-    
         dismiss(animated: true, completion: nil)
     }
     
@@ -47,7 +67,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         dismiss(animated: true, completion: nil)
     
         var filters = [String: AnyObject]()
+
+        // Get offering deal
+        filters["offeringDeal"] = offeringDeal as AnyObject
+
         
+        // Get selected categories
         var selectedCategories = [String]()
         for (row, isSelected) in switchStates {
             if isSelected {
@@ -59,35 +84,187 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             filters["categories"] = selectedCategories as AnyObject
         }
         
+        // Get distance filter
+        filters["distance"] = selectedDistanceOption as AnyObject
+        
+        // Get sort filter
+        filters["sortFilter"] = selectedSortOption as AnyObject
+        
         delegate?.filtersViewController?(filtersViewController: self, didUpdateFilters: filters)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return numberOfSections
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return nil
+        case 1:
+            return "Distance"
+        case 2:
+            return "Sort by"
+        case 3:
+            return "Category"
+        default:
+            return ""
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 16
+        }
+        
+        return 32
     }
   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return visibleDistanceOptions.count
+        case 2:
+            return visibleSortOptions.count
+        case 3:
+            return categories.count
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+        if indexPath.section == 1 {
+            
+            // Expand
+            if (visibleDistanceOptions.count == 1) {
+                visibleDistanceOptions = allDistanceOptions
+            } else {
+                // Contract 
+                selectedDistanceOption = [allDistanceOptions[indexPath.row]]
+                visibleDistanceOptions = selectedDistanceOption
+            }
+
+            tableView.reloadData()
+        }
+        
+        if indexPath.section == 2 {
+            
+            // Expand
+            if (visibleSortOptions.count == 1) {
+                visibleSortOptions = allSortOptions
+            } else {
+                // Contract
+                selectedSortOption = [allSortOptions[indexPath.row]]
+                visibleSortOptions = selectedSortOption
+            }
+            
+            tableView.reloadData()
+        }
+        
+        if indexPath.section == 3 {
+            // Expand if showing short list
+            if (categories.count == 4) {
+                categories = allYelpCategories()
+                tableView.reloadData()
+            }
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
-        
-        cell.switchLabel.text = categories[indexPath.row]["name"]!
-
-        cell.delegate = self
-        
-        print("setting to \(switchStates[indexPath.row] ?? false)")
-        cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
-        
-        return cell
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+            cell.switchLabel.text = "Offering a Deal"
+            cell.delegate = self
+            cell.onSwitch.isOn = offeringDeal
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OptionCell", for: indexPath) as! OptionCell
+            cell.optionLabel.text = visibleDistanceOptions[indexPath.row]
+            
+            if (visibleDistanceOptions.count == 1) {
+                cell.chosenStateImageView.image = UIImage(named: "downarrow")!
+            } else {
+                if (visibleDistanceOptions[indexPath.row] == selectedDistanceOption[0]) {
+                    cell.chosenStateImageView.image = UIImage(named: "checkmark")!
+                } else {
+                    cell.chosenStateImageView.image = UIImage(named: "emptycircle")!
+                }
+            }
+            
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OptionCell", for: indexPath) as! OptionCell
+            cell.optionLabel.text = visibleSortOptions[indexPath.row]
+            
+            if (visibleSortOptions.count == 1) {
+                cell.chosenStateImageView.image = UIImage(named: "downarrow")!
+            } else {
+                if (visibleSortOptions[indexPath.row] == selectedSortOption[0]) {
+                    cell.chosenStateImageView.image = UIImage(named: "checkmark")!
+                } else {
+                    cell.chosenStateImageView.image = UIImage(named: "emptycircle")!
+                }
+            }
+            
+            return cell
+        case 3:
+            let name = categories[indexPath.row]["name"]!
+            
+            if name == "Show More" {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ShowMoreCell", for: indexPath)
+                return cell
+            } else {
+            
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+            
+                cell.switchLabel.text = name
+                cell.delegate = self
+                cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
+                return cell
+            }
+            
+        default:
+            return UITableViewCell()
+        }
     }
+    
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         
         let indexPath = filtersTableView.indexPath(for: switchCell)!
         
-        switchStates[indexPath.row] = value
+        if indexPath.section == 0 {
+            offeringDeal = value
+        } else {
+            switchStates[indexPath.row] = value
+        }
     }
     
-    func yelpCategories() -> [[String:String]] {
+    
+    func yelpSortOptions() -> [String] {
+        return ["Best Match", "Distance", "Highest Rated"]
+    }
+    
+    func yelpDistanceOptions() -> [String] {
+        return ["Auto", "0.3 miles", "1 mile", "5 miles", "20 miles"]
+    }
+    
+    
+    func shortYelpCategories() -> [[String:String]] {
+        return [["name" : "Afghan", "code": "afghani"],
+                ["name" : "African", "code": "african"],
+                ["name" : "American, New", "code": "newamerican"],
+                ["name" : "Show More"]]
+    }
+    
+    func allYelpCategories() -> [[String:String]] {
         return [["name" : "Afghan", "code": "afghani"],
                       ["name" : "African", "code": "african"],
                       ["name" : "American, New", "code": "newamerican"],

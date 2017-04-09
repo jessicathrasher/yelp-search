@@ -25,7 +25,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         businessesTableView.dataSource = self
         businessesTableView.delegate = self
         businessesTableView.rowHeight = UITableViewAutomaticDimension
-        businessesTableView.estimatedRowHeight = 120
+        businessesTableView.estimatedRowHeight = 80
         
         Business.searchWithTerm(term: "", completion: { (businesses: [Business]?, error: Error?) -> Void in
                 self.businesses = businesses
@@ -107,9 +107,38 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         
+        print(filters)
+        
+        // Offer
+        let offeringDeal = filters["offeringDeal"] as! Bool
+        
+        // Categories
         let categories = filters["categories"] as? [String]
 
-        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        // Sort
+        let sortFilter = filters["sortFilter"] as? [String]
+        
+        var sort = YelpSortMode.bestMatched
+        
+        if let yelpSort = sortFilter?[0] {
+            switch yelpSort {
+            case "Distance":
+                sort = YelpSortMode.distance
+            case "Highest Rated":
+                sort = YelpSortMode.highestRated
+            default:
+                sort = YelpSortMode.bestMatched
+            }
+        }
+        
+        // Distance
+//        let distanceFilter = filters["distanceFilter"] as? [String]
+//        
+//        var distance = 482 //0.3 miles
+        
+        
+
+        Business.searchWithTerm(term: "Restaurants", sort: sort, categories: categories, deals: offeringDeal, completion: { (businesses: [Business]?, error: Error?) -> Void in
 
             self.businesses = businesses
             self.businessesTableView.reloadData()

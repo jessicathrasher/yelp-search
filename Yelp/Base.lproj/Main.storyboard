@@ -135,6 +135,11 @@
                                 <segue destination="Haz-Ct-ZUq" kind="presentation" id="4QT-hr-CQ2"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="cMg-TJ-oBV">
+                            <connections>
+                                <segue destination="KSz-4P-yzZ" kind="show" id="PdC-lG-NuJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="businessesTableView" destination="yoq-Hs-Jjv" id="8fB-hC-MHh"/>
@@ -223,24 +228,28 @@
                                             <outlet property="optionLabel" destination="mRB-Rb-QAB" id="hBH-vt-YVT"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShowMoreCell" id="lk1-lo-iz1" customClass="ShowMoreCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="180" width="375" height="86"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShowMoreCell" rowHeight="62" id="7Z8-cF-KpX" customClass="ShowMoreCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="179.5" width="375" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lk1-lo-iz1" id="3s3-fg-7YK">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Z8-cF-KpX" id="GJx-43-rQh">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="61.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show More 🎉" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQL-2s-iYO">
-                                                    <rect key="frame" x="131" y="33" width="113.5" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show More 🎉" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SP1-fP-Luy">
+                                                    <rect key="frame" x="130" y="20.5" width="114" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="SP1-fP-Luy" firstAttribute="centerY" secondItem="GJx-43-rQh" secondAttribute="centerY" id="2Oa-Pj-028"/>
+                                                <constraint firstItem="SP1-fP-Luy" firstAttribute="top" relation="greaterThanOrEqual" secondItem="GJx-43-rQh" secondAttribute="topMargin" constant="8" id="DS5-Dm-QTT"/>
+                                                <constraint firstItem="SP1-fP-Luy" firstAttribute="centerX" secondItem="GJx-43-rQh" secondAttribute="centerX" id="vUD-Iu-Pkz"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="showMoreLabel" destination="GQL-2s-iYO" id="mPv-Df-NYD"/>
+                                            <outlet property="showMoreLabel" destination="SP1-fP-Luy" id="pyY-9j-aTj"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -292,6 +301,46 @@
             </objects>
             <point key="canvasLocation" x="1788" y="357.57121439280365"/>
         </scene>
+        <!--Map View Controller-->
+        <scene sceneID="bFz-VQ-J0x">
+            <objects>
+                <viewController id="qey-W4-0D9" customClass="MapViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XpQ-Zn-IMl"/>
+                        <viewControllerLayoutGuide type="bottom" id="YZF-yM-Obf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3CB-81-pzI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8iJ-aA-DfO">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="8iJ-aA-DfO" secondAttribute="trailing" id="03T-3J-o3a"/>
+                            <constraint firstItem="8iJ-aA-DfO" firstAttribute="top" secondItem="XpQ-Zn-IMl" secondAttribute="bottom" id="0bd-J6-m4F"/>
+                            <constraint firstItem="8iJ-aA-DfO" firstAttribute="leading" secondItem="3CB-81-pzI" secondAttribute="leading" id="BZ8-mo-DZM"/>
+                            <constraint firstItem="YZF-yM-Obf" firstAttribute="top" secondItem="8iJ-aA-DfO" secondAttribute="bottom" id="Xw8-sI-gT2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="geZ-WS-08U">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="FoD-7q-IhS">
+                            <connections>
+                                <action selector="backButtonClicked:" destination="qey-W4-0D9" id="EDE-lz-3jy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="backButton" destination="FoD-7q-IhS" id="AZp-iW-QpL"/>
+                        <outlet property="mapView" destination="8iJ-aA-DfO" id="s1A-fO-PvU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vqm-Z3-BzP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3630" y="-996"/>
+        </scene>
         <!--Business Detail View Controller-->
         <scene sceneID="NKb-uo-bu8">
             <objects>
@@ -328,6 +377,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kHI-Zo-Rod" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3630" y="358"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="di9-QB-Fq1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KSz-4P-yzZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v2D-De-2Io">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qey-W4-0D9" kind="relationship" relationship="rootViewController" id="Mmx-EV-Aiy"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Aa-tI-2y9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2887" y="-725"/>
         </scene>
     </scenes>
     <resources>

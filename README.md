@@ -2,7 +2,7 @@
 
 **Yelp** is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: **X** hours spent in total
+Time spent: **11** hours spent in total
 
 ## User Stories
 
@@ -23,10 +23,10 @@ The following **optional** features are implemented:
 
 - [ ] Search results page
    - [ ] Infinite scroll for restaurant results.
-   - [ ] Implement map view of restaurant results.
+   - [X] Implement map view of restaurant results.
 - [ ] Filter page
    - [ ] Implement a custom switch instead of the default UISwitch.
-   - [ ] Distance filter should expand as in the real Yelp app
+   - [X] Distance filter should expand as in the real Yelp app
    - [X] Categories should show a subset of the full list with a "See All" row to expand. Category list is [here](http://www.yelp.com/developers/documentation/category_list).
 - [ ] Implement the restaurant detail page.
 
@@ -36,14 +36,14 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. Refactoring TableView cells with similar elements
+2. Debugging autolayout in cells 
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/jessicathrasher/yelp-search/demo.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

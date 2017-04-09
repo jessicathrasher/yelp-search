@@ -103,6 +103,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             if let filtersViewController = navigationController.topViewController as? FiltersViewController {
                 filtersViewController.delegate = self
             }
+
+            if let mapViewController = navigationController.topViewController as? MapViewController {
+                mapViewController.businesses = businesses
+            }
         }
     }
     

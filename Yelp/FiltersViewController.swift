@@ -85,10 +85,10 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         
         // Get distance filter
-        filters["distance"] = selectedDistanceOption as AnyObject
+        filters["distanceFilter"] = selectedDistanceOption[0] as AnyObject
         
         // Get sort filter
-        filters["sortFilter"] = selectedSortOption as AnyObject
+        filters["sortFilter"] = selectedSortOption[0] as AnyObject
         
         delegate?.filtersViewController?(filtersViewController: self, didUpdateFilters: filters)
     }
@@ -113,6 +113,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        // First section doesn't have a title, create a smaller gap
         if section == 0 {
             return 16
         }
@@ -148,8 +149,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 selectedDistanceOption = [allDistanceOptions[indexPath.row]]
                 visibleDistanceOptions = selectedDistanceOption
             }
-
-            tableView.reloadData()
+            let indexSet = NSIndexSet(index: indexPath.section)
+            tableView.reloadSections(indexSet as IndexSet, with: UITableViewRowAnimation.automatic)
         }
         
         if indexPath.section == 2 {
@@ -163,15 +164,15 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 visibleSortOptions = selectedSortOption
             }
             
-            tableView.reloadData()
-        }
+            let indexSet = NSIndexSet(index: indexPath.section)
+            tableView.reloadSections(indexSet as IndexSet, with: UITableViewRowAnimation.automatic)        }
         
         if indexPath.section == 3 {
             // Expand if showing short list
             if (categories.count == 4) {
                 categories = allYelpCategories()
-                tableView.reloadData()
-            }
+                let indexSet = NSIndexSet(index: indexPath.section)
+                tableView.reloadSections(indexSet as IndexSet, with: UITableViewRowAnimation.automatic)            }
         }
     }
 

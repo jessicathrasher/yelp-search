@@ -98,16 +98,15 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let navigationController = segue.destination as! UINavigationController
-
-        let filtersViewController = navigationController.topViewController as! FiltersViewController
-
-        filtersViewController.delegate = self
+        
+        if let navigationController = segue.destination as? UINavigationController {
+            if let filtersViewController = navigationController.topViewController as? FiltersViewController {
+                filtersViewController.delegate = self
+            }
+        }
     }
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
-        
-        print(filters)
         
         // Offer
         let offeringDeal = filters["offeringDeal"] as! Bool
@@ -116,11 +115,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         let categories = filters["categories"] as? [String]
 
         // Sort
-        let sortFilter = filters["sortFilter"] as? [String]
+        let sortFilter = filters["sortFilter"] as? String
         
         var sort = YelpSortMode.bestMatched
         
-        if let yelpSort = sortFilter?[0] {
+        if let yelpSort = sortFilter {
             switch yelpSort {
             case "Distance":
                 sort = YelpSortMode.distance
@@ -132,13 +131,23 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         
         // Distance
-//        let distanceFilter = filters["distanceFilter"] as? [String]
-//        
-//        var distance = 482 //0.3 miles
+        var distance = 0
+        if let distanceFilter = filters["distanceFilter"] as? String {
+            switch distanceFilter {
+            case "0.3 miles":
+                distance = 482
+            case "1 mile":
+                distance = 1609
+            case "5 miles":
+                distance = 8046
+            case "20 miles":
+                distance = 32186
+            default:
+                distance = 0
+            }
+        }
         
-        
-
-        Business.searchWithTerm(term: "Restaurants", sort: sort, categories: categories, deals: offeringDeal, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "", sort: sort, categories: categories, deals: offeringDeal, distance: distance, completion: { (businesses: [Business]?, error: Error?) -> Void in
 
             self.businesses = businesses
             self.businessesTableView.reloadData()

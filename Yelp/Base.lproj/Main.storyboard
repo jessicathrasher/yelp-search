@@ -30,7 +30,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vXh-hZ-L49" id="6gu-Fn-aXe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="111.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VTg-yP-bDX">
@@ -115,6 +115,7 @@
                                             <outlet property="reviewCountLabel" destination="7sq-8l-Cym" id="K6T-dL-1Au"/>
                                             <outlet property="starsImageView" destination="8v8-2B-OTm" id="hfU-dE-8CX"/>
                                             <outlet property="thumbnailImageView" destination="VTg-yP-bDX" id="goD-Z5-0bf"/>
+                                            <segue destination="0A7-oF-KcU" kind="show" id="9i3-qg-Vpk"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -160,10 +161,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="62" id="sZY-pT-1J0" customClass="SwitchCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="62"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sZY-pT-1J0" id="ykB-Ee-R1b">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="61.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4a0-N9-6yX">
@@ -189,10 +190,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OptionCell" rowHeight="62" id="Dj2-Ya-oE5" customClass="OptionCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="118" width="375" height="62"/>
+                                        <rect key="frame" x="0.0" y="117.5" width="375" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dj2-Ya-oE5" id="JDZ-qL-duW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="61.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRB-Rb-QAB">
@@ -223,10 +224,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShowMoreCell" rowHeight="62" id="VZA-X6-UwZ">
-                                        <rect key="frame" x="0.0" y="180" width="375" height="62"/>
+                                        <rect key="frame" x="0.0" y="179.5" width="375" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VZA-X6-UwZ" id="znd-36-860" customClass="ShowMoreCell" customModule="Yelp" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="61.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show More 🎉" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8KZ-15-FOh">
@@ -291,6 +292,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Liz-pF-5n2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1788" y="357.57121439280365"/>
+        </scene>
+        <!--Business Detail View Controller-->
+        <scene sceneID="NKb-uo-bu8">
+            <objects>
+                <viewController id="0A7-oF-KcU" customClass="BusinessDetailViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="44p-FN-bRp"/>
+                        <viewControllerLayoutGuide type="bottom" id="GB5-ye-aWy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yqn-k7-dqw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="2jh-0D-Gc1"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ul0-LD-NbH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3630" y="-319"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8Gi-M2-YJF">
